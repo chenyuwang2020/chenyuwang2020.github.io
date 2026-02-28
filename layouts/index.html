@@ -1,0 +1,207 @@
+{{ define "main" }}
+<div class="home-container">
+
+    <div class="profile-header">
+        <div class="avatar-wrapper">
+            <img src="/images/casual.jpg" alt="Avatar" class="avatar-img">
+        </div>
+        
+        <div class="profile-info">
+            <h2>Chenyu Wang | 王晨宇</h2>
+            <p class="subtitle">硕士二年级研究生：东北大学（985）</p>
+            <p class="subtitle">邮箱：chenyu_wang2020@163.com</p>
+            <a href="/posts" class="button-primary">📖 Blog(Coming soon)</a>
+        </div>
+    </div>
+
+    <section id="bio" class="content-section">
+        <h2>About Me</h2>
+        <div class="intro-text">
+            <p>
+
+                <p>你好！我是<b>王晨宇</b>，目前在<b>东北大学</b>（沈阳）图像识别与机器智能研究所学习；</p>
+                <p>我的研究兴趣包括：</p>
+                <ul>
+                    <li>自动驾驶与机器人技术；</li>
+                    <li>三维场景重建与多模态感知理解；</li>
+                </ul>
+                <p> 我热衷于探究<b>多模态感知</b>背后的<b>无限可能！</b>
+                    我期待通过技术创新，让智能体（Agent）不仅能<b>复刻世界的样貌</b>，更能<b>理解世界的逻辑</b>，从而实现真正意义上的<b>自主机器人</b>与<b>智能驾驶！</b></p>
+            </p>
+        </div>
+    </section>
+
+    <section id="research" class="content-section">
+        <h2>Research & Projects</h2>
+        <div class="project-grid">
+            <!-- 项目 A -->
+            <div class="project-card">
+                <div class="carousel" data-carousel="1">
+                    <button class="carousel-btn prev">❮</button>
+                    <div class="carousel-track">
+                        <img src="/images/SAGE-Loc-head.jpg" alt="SAGE-Loc 1">
+                        <img src="/images/SAGE-Loc-ex.jpg" alt="SAGE-Loc 2">
+                        <video src="/images/SAGE-Loc-sequence0.mp4" autoplay loop muted playsinline></video>
+                        <video src="/images/SAGE-Loc-sequenceall.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <button class="carousel-btn next">❯</button>
+                    <div class="carousel-dots"></div>
+                </div>
+                <div class="card-text">
+                    <h4>SAGE-Loc: Rethinking Map-Aware Robust Visual Localization via Semantic-and-Geometry Fusion</h4>
+                    <p>IROS 2026 (Under Review)</p>
+                    <p style="font-size: 1.0rem;"><b>Chenyu Wang</b>, Shuying Zhao*, Yunzhou Zhang, Xuanhua Chen, Hongda Wang, Bin Zhao</p>
+                    <p><a href="/posts/sage-loc" style="font-size: 0.9rem;">📝[Project Blog]</a></p>
+                </div>
+            </div>
+            <!-- 项目 B -->
+            <div class="project-card">
+                <div class="carousel" data-carousel="2">
+                    <div class="carousel-track">
+                        <img src="/images/project-b-placeholder.jpg" alt="Coming Soon">
+                    </div>
+                </div>
+                <div class="card-text">
+                    <h4>非结构化场景的视觉雷达融合建图</h4>
+                    <p>   </p>
+                    <p><a href="/posts/fast-livo2" style="font-size: 0.9rem;">📝[Project Blog]</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="content-section">
+        <h2>Education</h2>
+        
+        <div class="edu-item">
+            <div class="edu-logo">
+                <img src="/images/NEU.png" alt="NEU Logo">
+            </div>
+            <div class="edu-info">
+                <div class="edu-header">
+                    <span class="uni-name">东北大学</span>, 沈阳
+                </div>
+                <div class="edu-date">2024.09 - Now</div>
+                <div class="edu-degree">控制工程，硕士</div>
+            </div>
+        </div>
+    
+        <div class="edu-item">
+            <div class="edu-logo">
+                <img src="/images/SYNU.png" alt="SYNU Logo">
+            </div>
+            <div class="edu-info">
+                <div class="edu-header">
+                    <span class="uni-name">沈阳师范大学</span>, 沈阳
+                </div>
+                <div class="edu-date">2020.09 - 2024.06</div>
+                <div class="edu-degree">电子信息工程，学士</div>
+            </div>
+        </div>
+
+    </section>
+
+
+        
+
+
+</div>
+
+<script>
+// Ensure video elements match carousel img sizing
+const style = document.createElement('style');
+style.textContent = '.carousel-track video { width: 300px; height: auto; aspect-ratio: 16 / 9; object-fit: contain; flex-shrink: 0; background-color: #f5f5f5; }';
+document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.carousel').forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        const images = Array.from(track.querySelectorAll('img, video'));
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+        const dotsContainer = carousel.querySelector('.carousel-dots');
+
+        const totalImages = images.length;
+        let currentIndex = 1; // 从1开始，因为0是克隆的最后一张
+
+        // 如果只有一张媒体，跳过克隆逻辑
+        if (totalImages === 1) {
+            return;
+        }
+
+        // 克隆首尾图片实现无缝循环
+        const firstClone = images[0].cloneNode(true);
+        const lastClone = images[totalImages - 1].cloneNode(true);
+        track.appendChild(firstClone);
+        track.insertBefore(lastClone, images[0]);
+
+        // 初始位置（跳过克隆的最后一张）
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Play video at initial position if it's a video
+        const initialMedia = track.children[currentIndex];
+        if (initialMedia && initialMedia.tagName === 'VIDEO') {
+            initialMedia.play().catch(() => {});
+        }
+
+        // 创建指示点
+        if (dotsContainer) {
+            images.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goTo(i + 1));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        const dots = dotsContainer ? dotsContainer.querySelectorAll('.dot') : [];
+
+        function updateDots() {
+            let dotIndex = currentIndex - 1;
+            if (dotIndex < 0) dotIndex = totalImages - 1;
+            if (dotIndex >= totalImages) dotIndex = 0;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === dotIndex);
+            });
+        }
+
+        function goTo(index) {
+            currentIndex = index;
+            track.style.transition = 'transform 0.3s ease';
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateDots();
+            // Play video at current position if it's a video
+            const currentMedia = track.children[currentIndex];
+            if (currentMedia && currentMedia.tagName === 'VIDEO') {
+                currentMedia.play().catch(() => {});
+            }
+        }
+
+        // 处理无缝循环：滑动结束后瞬间跳转
+        track.addEventListener('transitionend', () => {
+            if (currentIndex === 0) {
+                // 到达克隆的最后一张，跳到真正的最后一张
+                track.style.transition = 'none';
+                currentIndex = totalImages;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            if (currentIndex === totalImages + 1) {
+                // 到达克隆的第一张，跳到真正的第一张
+                track.style.transition = 'none';
+                currentIndex = 1;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            // Play video at current position if it's a video
+            const currentMedia = track.children[currentIndex];
+            if (currentMedia && currentMedia.tagName === 'VIDEO') {
+                currentMedia.play().catch(() => {});
+            }
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+    });
+});
+</script>
+{{ end }}

@@ -1,0 +1,354 @@
+/* ============================================ */
+/* 修复导航栏位置 & 图标对齐 (终极版)           */
+/* ============================================ */
+
+/* 1. 解决"顶到最上面"：给整个导航栏增加呼吸空间 */
+.nav {
+    padding-top: 20px !important;    /* 顶部留白：你可以改这个数字，比如 15px 或 30px */
+    padding-bottom: 10px !important; /* 底部留白 */
+    display: flex;
+    align-items: center;             /* 确保导航栏里的所有东西（包括右边的菜单）都垂直居中 */
+}
+
+/* 2. 房子(Logo) 和 月亮(Toggle) 的父容器设置 */
+.logo {
+    display: flex !important;
+    align-items: center !important;  /* 强制子元素垂直居中 */
+    gap: 1px;                       /* 房子和月亮之间的间距 */
+    margin: 2;                       /* 清除可能存在的默认边距 */
+}
+
+/* 3. 房子图标 (Link) */
+.logo a {
+    font-size: 0 !important;         /* 隐藏文字 */
+    display: flex;
+    align-items: center;
+    background: none !important;
+}
+
+/* 4. 月亮按钮 (Button) - 清除默认干扰样式 */
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    line-height: 1;
+}
+
+/* 5. 强制统一图标大小和线条 */
+.logo a svg,
+#theme-toggle svg {
+    width: 24px !important;         /* 统一宽度 */
+    height: 24px !important;        /* 统一高度 */
+    stroke-width: 2px !important;   /* 统一线条粗细 */
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ============================================ */
+/* 6. 微调区 (如果不齐，只改这里)               */
+/* ============================================ */
+/* 通常加了上面的 padding-top 后，这里只要微调相对位置即可 */
+
+.logo a svg {
+    transform: translateY(0px);     /* 房子微调 */
+}
+
+#theme-toggle svg {
+    transform: translateY(1px);     /* 月亮微调 (通常月亮需要往下一点点) */
+}
+
+
+
+/* --- 覆盖 PaperMod 主题的宽度限制 --- */
+.main {
+    max-width: 960px;  /* 覆盖主题默认的 720px */
+}
+
+/* --- 1. 全局容器限制 --- */
+.home-container {
+    max-width: 960px; /* 与 .main 保持一致 */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- 2. 第一行：顶部名片 (Profile Header) --- */
+.profile-header {
+    display: flex;
+    align-items: flex-start;  /* 关键：从 center 改为 flex-start。让文字和图片都顶头对齐 */
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* --- 3. 头像控制 (解决图片过大问题) --- */
+.avatar-wrapper {
+    flex-shrink: 0;           /* 防止头像被挤压 */
+}
+
+.avatar-img {
+    width: 180px;             /* 强制宽度：你可以改成 180px 或 120px */
+    height: auto;            /* 强制高度：保持正方形 */
+    border-radius: 12px;      /* 关键：改成圆角矩形 */
+    border: 1px solid #ddd;   /* 边框改细一点，精致一些 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- 4. 名片右侧文字 --- */
+.profile-info h2 {
+    margin: 0 0 8px 0;   /* 名字下方间距 */
+    font-size: 2rem;
+}
+
+.profile-info .subtitle {
+    font-size: 1.1rem;
+    color: var(--secondary);
+    margin: 0 0 6px 0;   /* 统一行间距：上0 下6px */
+    line-height: 1.5;
+}
+
+.profile-info .subtitle:last-of-type {
+    margin-bottom: 20px; /* 最后一行 subtitle 与按钮的间距 */
+}
+
+/* --- 5. 按钮样式 --- */
+.button-primary {
+    display: inline-block;
+    background-color: var(--primary); /* 使用主题的主色调 */
+    color: var(--theme);              /* 文字颜色自适应 */
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid currentColor;
+    transition: all 0.3s;
+}
+
+.button-primary:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+/* --- 6. 简介区域列表样式 --- */
+.intro-text ul {
+    padding-left: 2em;    /* 左侧缩进 */
+    margin: 10px 0;       /* 上下间距 */
+}
+
+.intro-text li {
+    margin-bottom: 5px;   /* 列表项间距 */
+}
+
+/* --- 7. 通用板块样式 (Bio, Edu, Research) --- */
+.content-section {
+    margin-bottom: 50px; /* 板块之间的间距 */
+}
+
+.content-section h2 {
+    border-bottom: 2px solid var(--entry); /* 标题下加条线 */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* --- 8. 教育经历样式 --- */
+.edu-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.edu-logo {
+    flex-shrink: 0;
+}
+
+.edu-logo img {
+    width: 90px;      /* 调整 Logo 大小 */
+    height: auto;
+}
+
+.edu-info {
+    flex: 1;
+}
+
+.edu-header .uni-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.edu-date {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin: 4px 0;
+}
+
+.edu-degree {
+    color: var(--secondary);
+}
+
+/* --- 9. 项目列表 (Project List) --- */
+.project-grid {
+    display: flex;
+    flex-direction: column;  /* 垂直排列，每个项目一行 */
+    gap: 20px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: row;     /* 横向布局：左图右文 */
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-img {
+    flex-shrink: 0;
+    width: 300px;
+    aspect-ratio: 16 / 9;
+    background-color: #f5f5f5;
+    background-size: contain;    /* 显示完整图片 */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card-text {
+    flex: 1;                 /* 右侧文字占据剩余空间 */
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-text h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+}
+
+.card-text p {
+    margin: 0;
+    color: var(--secondary);
+    line-height: 1.6;
+}
+
+/* 移动端：改为垂直布局 */
+@media screen and (max-width: 600px) {
+    .project-card {
+        flex-direction: column;
+    }
+    .card-img {
+        width: 100%;
+        height: 150px;
+    }
+}
+
+/* --- 9. 移动端适配 (手机上自动变垂直) --- */
+@media screen and (max-width: 600px) {
+    .profile-header {
+        flex-direction: column; /* 改为垂直排列 */
+        text-align: center;     /* 文字居中 */
+        gap: 20px;
+    }
+
+    .edu-header {
+        flex-direction: column; /* 手机上时间和学校分行显示 */
+    }
+}
+
+/* --- 10. 图片轮播组件 --- */
+.carousel {
+    position: relative;
+    width: 300px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel-track img {
+    width: 300px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    flex-shrink: 0;
+    background-color: #f5f5f5;
+}
+
+/* 左右按钮 */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-btn.prev {
+    left: 8px;
+}
+
+.carousel-btn.next {
+    right: 8px;
+}
+
+/* 指示点 */
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.carousel-dots .dot.active {
+    background: white;
+}
+
+.carousel-dots .dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* 移动端轮播适配 */
+@media screen and (max-width: 600px) {
+    .carousel {
+        width: 100%;
+    }
+    .carousel-track img {
+        width: 100%;
+    }
+}

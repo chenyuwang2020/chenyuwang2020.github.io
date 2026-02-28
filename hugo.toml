@@ -1,0 +1,67 @@
+baseURL = "https://chenyuwang2020.github.io/"
+languageCode = "zh-cn"
+title = "Chenyu Wang(王晨宇)"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[caches.images]
+  dir = ":cacheDir/images"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[markup.highlight]
+  noClasses = false
+  codeFences = true
+  guessSyntax = true
+
+[params]
+  # SEO Configuration - Required by PaperMod theme for OpenGraph, Twitter Cards, Schema.org
+  # params.env is DIFFERENT from HUGO_ENVIRONMENT in CI workflow - keep both
+  env = "production"
+  description = "Chenyu Wang 个人学术主页 — 机器人、SLAM、视觉定位研究"
+  author = "Chenyu Wang"
+  keywords = ["robotics", "SLAM", "visual localization", "LiDAR", "research"]
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  [params.assets]
+    disableHLJS = false  # 启用代码高亮
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"
+
+
+  # Profile Mode - 已禁用，使用自定义 layouts/index.html
+  [params.profileMode]
+    enabled = false
+
+  # 隐藏首页文章列表
+  [params.homeInfoParams]
+    enabled = false
+
+  [params.label]
+    text = " "              # 保持为空格，隐藏文字
+    url = "/"
+    # 下面把 iconHeight 改为 24
+    iconHeight = 24
+    # 稍微简化了 SVG，去掉了 width/height 属性，全权交给 CSS 控制
+    iconSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>'
+
+
+
+
+
+# 注意：PaperMod 会自动加载 assets/css/extended/ 目录下的所有 CSS 文件
+# 自定义样式位于：assets/css/extended/home.css
